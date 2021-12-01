@@ -6,6 +6,7 @@ import 'constants.dart';
 import 'results_page.dart';
 import 'bottom_button.dart';
 import 'round_icon_button.dart';
+import 'calculator_brain.dart';
 
 enum Gender { male, female }
 
@@ -212,11 +213,17 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             buttonTitle: 'CALCULATE',
             onTap: () {
+              CalculatorBrain calc =
+                  CalculatorBrain(weight: weight, height: height);
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return ResultsPage();
+                    return ResultsPage(
+                      bmiResult: calc.calculateBMI(),
+                      resultText: calc.getResult(),
+                      interpretation: calc.getInterpretation(),
+                    );
                   },
                 ),
               );
